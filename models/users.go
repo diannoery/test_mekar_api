@@ -21,3 +21,9 @@ type Pendidikan struct {
 	IdPendidikan string `json:"id_pendidikan"`
 	Pendidikan   string `json:"pendidikan""`
 }
+
+type LoginUser struct {
+	Id_user  string `json:"id_user"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

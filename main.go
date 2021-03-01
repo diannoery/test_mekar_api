@@ -8,6 +8,5 @@ import (
 func main() {
 	databases.Init()
 	e := routes.Init()
-
 	e.Logger.Fatal(e.Start(":8888"))
 }

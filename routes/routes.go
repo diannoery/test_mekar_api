@@ -26,5 +26,12 @@ func Init() *echo.Echo {
 
 	//pendidikan
 	e.GET("/pendidikan",controller.DataPendidikan)
+
+	//login & register admin
+	e.POST("/register",controller.RegisterAdmin)
+	e.POST("/login",controller.LoginAdmin)
+
+
+
 	return e
 }

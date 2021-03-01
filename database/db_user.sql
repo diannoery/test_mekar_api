@@ -55,3 +55,9 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2021-03-01  4:01:49
+
+CREATE TABLE `data_users`.`user_login` (
+  `iduser_login` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(75) NULL,
+  `password` VARCHAR(80) NULL,
+  PRIMARY KEY (`iduser_login`));

@@ -8,4 +8,6 @@ const (
 	PEKERJAN       = "select * from m_pekerjaan;"
 	PENDIDIKAN     = "select * from m_pendidikan;"
 	DELETE_USER    = "delete from tb_users where id_users = ?;"
+	REGISTER_ADMIN = "insert into user_login(username,password) values (?,?);"
+	LOGIN_ADMIN    = "select * from user_login where username =?;"
 )
