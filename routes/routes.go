@@ -16,6 +16,7 @@ func Init() *echo.Echo {
 	})
 	//user
 	e.GET("/users", controller.FecthAll)
+	e.GET("/users/:page/:limit", controller.FecthAllPage)
 	e.POST("/users", controller.CreateUser)
 	e.PUT("/users", controller.UpdateUser)
 	e.DELETE("/users/:id", controller.DeleteUser)

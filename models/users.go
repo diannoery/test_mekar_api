@@ -27,3 +27,14 @@ type LoginUser struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
+type UserList struct {
+	Users    []Users    `json:"users,omitempty"`
+	Metadata Pagination `json:"metadata,omitempty"`
+}
+
+type Pagination struct {
+	CurrentPage int `json:"currentPage,omitempty"`
+	FirstPage   int `json:"firstPage,omitempty"`
+	LastPage    int `json:"lastPage,omitempty"`
+	TotalData   int `json:"totalData,omitempty"`
+}

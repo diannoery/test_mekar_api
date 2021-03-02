@@ -55,3 +55,20 @@ Output Program
         4.Delete user
             URL ->  /users/36d0035f-cd53-4b55-a50c-0ce77d7b8ee4
             Menthod : DELETE
+
+
+        5.login admin
+            Method : POST
+            Body :
+                Contoh Body :{
+                                "username": "dian",
+                                "password": "123",
+                            }
+
+         5.register admin
+            Method : POST
+            Body :
+                Contoh Body :{
+                                "username": "dian",
+                                "password": "123",
+                            }

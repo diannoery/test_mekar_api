@@ -3,7 +3,9 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
+	"strconv"
 	"test_mekar_api/models"
 	"test_mekar_api/repositories"
 
@@ -11,6 +13,12 @@ import (
 )
 
 func FecthAll(c echo.Context) error {
+
+	page :=c.Param("page")
+	limit :=c.Param("limit")
+	fmt.Println(page)
+	fmt.Println(limit)
+
 	result, err := repositories.FetchAllUser()
 
 	if err != nil {
@@ -18,6 +26,40 @@ func FecthAll(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, result)
+}
+
+func FecthAllPage(c echo.Context) error {
+
+	page :=c.Param("page")
+	limit :=c.Param("limit")
+	
+	PageInt,_:= strconv.Atoi(page)
+	LimitInt, _ := strconv.Atoi(limit)
+
+	result, err := repositories.FetchAllUserPage(PageInt,LimitInt)
+
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": err.Error()})
+	}
+
+	totalData, err := repositories.CountUser()
+	if err != nil {
+		fmt.Println("error")
+	}
+
+	totalPage := math.Ceil(float64(totalData)/float64(LimitInt))
+
+	res := models.UserList{
+		Users: result,
+		Metadata: models.Pagination{
+			CurrentPage: PageInt,
+			FirstPage:   1,
+			LastPage:    int(totalPage),
+			TotalData:   totalData,
+		},
+	}
+
+	return c.JSON(http.StatusOK, res)
 }
 
 func CreateUser(c echo.Context) error {

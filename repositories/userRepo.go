@@ -43,6 +43,44 @@ func FetchAllUser() (models.ResponeMessage, error) {
 	return res, nil
 }
 
+func FetchAllUserPage(i int , i2 int) ([]models.Users, error) {
+
+	IndexFirst := (i * i2)-i2
+	
+	var obj models.Users
+	var arrObj []models.Users
+	var res models.ResponeMessage
+
+	con := databases.CreateCon()
+	
+	sql := utils.ALL_USER_PAGE
+	stmt, err := con.Prepare(sql)
+
+	rows, err := stmt.Query(IndexFirst,i2)
+	defer rows.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		err = rows.Scan(&obj.UserId, &obj.Nik, &obj.Nama, &obj.TanggalLahir, &obj.Pekerjaan.IDPekerjaan, &obj.Pekerjaan.Pekerjaan, &obj.PendidikanTerakhir.IdPendidikan, &obj.PendidikanTerakhir.Pendidikan, &obj.UserStatus, &obj.CreatedDate, &obj.UpdatedDate)
+
+		if err != nil {
+			return nil, err
+		}
+
+		arrObj = append(arrObj, obj)
+	}
+
+	res.Status = http.StatusOK
+	res.Message = "Success"
+	res.Data = arrObj
+	
+
+	return arrObj, nil
+}
+
 func DeleteUser(id string) (models.ResponeMessage, error) {
 	
 	var res models.ResponeMessage
@@ -211,4 +249,21 @@ func FetchPendidikan() (models.ResponeMessage, error) {
 	res.Data = arrObj
 
 	return res, nil
+}
+
+
+func  CountUser() (int, error) {
+	var totalData int
+	con := databases.CreateCon()
+	sql := utils.COUNT_DATA_USER
+	stmt, err := con.Prepare(sql)
+	if err != nil {
+		return totalData, err
+	}
+	defer stmt.Close()
+	err = stmt.QueryRow().Scan(&totalData)
+	if err != nil {
+		return totalData, err
+	}
+	return totalData, nil
 }
